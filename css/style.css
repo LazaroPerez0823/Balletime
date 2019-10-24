@@ -1,0 +1,58 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    line-height:1.8;
+}
+
+#titlePage {
+    margin: 100px 40%;
+}
+
+.button {
+    background: rgb(255, 102, 0);
+    padding: 1em 2em;
+    color:#fff;
+    border: 0px;
+    border-radius: 5px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.button:hover {
+   background: #444;
+   cursor: pointer;
+}
+
+.modal {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width:100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modalContent {
+    background-color: whitesmoke;
+    margin: 20% auto;
+    padding: 20px 30px;
+    width: 60%;
+    box-shadow: 0 5px 8px 0 rgba(0,0,0,0.5);
+}
+
+h3 {
+    margin: 10px 0px;
+}
+
+#closeBtn {
+    color: rgb(175, 174, 174);
+    float: right;
+    font-size: 30px;
+}
+
+#closeBtn:hover {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
