@@ -4,19 +4,8 @@
     <title>Geolocation</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+   
   </head>
   <body>
     <div id="map"></div>
@@ -25,6 +14,10 @@
       // prompted by your browser. If you see the error "The Geolocation service
       // failed.", it means you probably did not give permission for the browser to
       // locate you.
+
+function runMap(); {
+
+
       var map, infoWindow;
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -44,7 +37,7 @@
             console.log("Lat " + pos.lat);
             console.log("Lng " + pos.lng);
             infoWindow.setPosition(pos);
-            infoWindow.setContent('Location found.');
+            infoWindow.setContent("Lat = " + pos.lat + "<br>" + " Lng = " + pos.lng);
             infoWindow.open(map);
             map.setCenter(pos);
           }
@@ -66,14 +59,13 @@
 
       }
 
-      
+    }
   
     
       
  
     </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAE2CIuMnHiuUN7XLs9fRiATGN1gD-t0LY&callback=initMap">
-    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAE2CIuMnHiuUN7XLs9fRiATGN1gD-t0LY&callback=initMap"></script>
+
   </body>
 </html>
