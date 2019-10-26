@@ -1,29 +1,14 @@
-// // Working setting up cookies
-// var newDate;
 
-// // Previous visits
-// $.cookie("visits", 20);
+$(document).ready(function () {
 
-// // Name of the Cookie with an expiration date
-// $.cookie('Project', 'Restaurant Finder', { expires: 2 });
-
-// $.cookie("name", "Kelvin", { secure: true });
-
-// // Testing
-// console.debug($.cookie("visits"));
-// console.debug($.cookie("Project"));
-// console.debug($.cookie("favorite-food"));
-// console.debug($.cookie("name"));
-// // alert($.cookie("visits"));
-// // alert($.cookie("Project"));
-// // alert($.cookie("name"));
-
-// // To remove a cookie
-// // $.removeCookie("example");
-
-var states = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado"];
-
-
+    var states = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida",
+    "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana",
+    "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana",
+    "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina",
+    "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota",
+    "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"];
+    
+    
 // When users click "search"
 $("#modalBtn").on('click', function(event) {
     // Prevent the page from resetting
@@ -62,3 +47,7 @@ for (var i = 0; i < states.length; i++) {
 
     console.log($('#inputState').append(dropDown));
 }
+
+
+
+});
