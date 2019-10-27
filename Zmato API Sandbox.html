@@ -28,6 +28,7 @@ Rating -->
 
     <!-- Retrieved data will be dumped here -->
     <div class="restaurantName"></div>
+    <div class="highlights"></div>
     <div class="photos"></div>
     <div class="timings"></div>
     <div class="phoneNumbers"></div>
@@ -71,6 +72,11 @@ Rating -->
 
                 var restaurantName = $('<h3>').text("Restaurant: " + results[i].restaurant.name);
                 // for now include the photo URL since there is no specific photo listing
+
+                // Going to include highlights for now
+                var highlights = $('<p>').text("Highlights: " + results[i].restaurant.highlights);
+
+                // To view photo, user will have to click on the URL
                 var photoURL = $('<p>').text("Photos: " + results[i].restaurant.photos_url);
                 var timings = $('<p>').text("Timings: " + results[i].restaurant.timings);
                 var phoneNumber = $('<p>').text("Phone Number: " + results[i].restaurant.phone_numbers);
@@ -79,16 +85,18 @@ Rating -->
                 var rating = $('<p>').text('Rating: ' + results[i].restaurant.user_rating.aggregate_rating);
 
                 // Appending the new items to the new div restaurants
-                restaurants.append(restaurantName);
-                restaurants.append(photoURL);
-                restaurants.append(timings);
-                restaurants.append(phoneNumber);
-                restaurants.append(websiteURL);
-                restaurants.append(address);
-                restaurants.append(rating);
+                restaurants.append(restaurantName, highlights, photoURL, timings, phoneNumber, websiteURL, address, rating);
+                // restaurants.append(highlights);
+                // restaurants.append(photoURL);
+                // restaurants.append(timings);
+                // restaurants.append(phoneNumber);
+                // restaurants.append(websiteURL);
+                // restaurants.append(address);
+                // restaurants.append(rating);
 
                 // Appending the new div to our main divs in the html.
                 $('.restaurantName').append(restaurants);
+                $('.highlights').append(restaurants);
                 $('.photos').append(restaurants);
                 $(".timings").append(restaurants);
                 $('.phoneNumbers').append(restaurants);
