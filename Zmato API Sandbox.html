@@ -63,22 +63,37 @@ Rating -->
             console.log(results);
 
             for (var i = 0; i < results.length; i++) {
-                var restaurantName = $('<h3>').text("Name: " + results[i].restaurant.name);
-                // for now include the photo URL since there is no specific photo listing
-                var photoURL = $('<h3>').text("Photos: " + results[i].restaurant.photos_url);
-                var timings = $('<h3>').text("Timings: " + results[i].restaurant.timings);
-                var phoneNumber = $('<h3>').text("Phone Number: " + results[i].restaurant.phone_numbers);
-                var websiteURL = $('<h4>').text("Website: " + results[i].restaurant.url);
-                var address = $('<h4>').text("Address: " + results[i].restaurant.location.address);
-                var rating = $('<h4>').text('Rating: ' + results[i].restaurant.user_rating.aggregate_rating);
+                // create a new variable div to store new data
+                var restaurants = $('<div>');
+                restaurants.addClass('listings');
 
-                $('.restaurantName').append(restaurantName);
-                $('.photos').append(photoURL);
-                $(".timings").append(timings);
-                $('.phoneNumbers').append(phoneNumber);
-                $('.url').append(websiteURL);
-                $('.address').append(address);
-                $('.rating').append(rating);
+
+                var restaurantName = $('<h3>').text("Restaurant: " + results[i].restaurant.name);
+                // for now include the photo URL since there is no specific photo listing
+                var photoURL = $('<p>').text("Photos: " + results[i].restaurant.photos_url);
+                var timings = $('<p>').text("Timings: " + results[i].restaurant.timings);
+                var phoneNumber = $('<p>').text("Phone Number: " + results[i].restaurant.phone_numbers);
+                var websiteURL = $('<p>').text("Website: " + results[i].restaurant.url);
+                var address = $('<p>').text("Address: " + results[i].restaurant.location.address);
+                var rating = $('<p>').text('Rating: ' + results[i].restaurant.user_rating.aggregate_rating);
+
+                // Appending the new items to the new iv
+                restaurants.append(restaurantName);
+                restaurants.append(photoURL);
+                restaurants.append(timings);
+                restaurants.append(phoneNumber);
+                restaurants.append(websiteURL);
+                restaurants.append(address);
+                restaurants.append(rating);
+
+                // Appending the new div to our main divs.
+                $('.restaurantName').append(restaurants);
+                $('.photos').append(restaurants);
+                $(".timings").append(restaurants);
+                $('.phoneNumbers').append(restaurants);
+                $('.url').append(restaurants);
+                $('.address').append(restaurants);
+                $('.rating').append(restaurants);
             }
 
             // $(".restaurantName").text("Name: " + response.restaurants[0].restaurant.name);
