@@ -65,8 +65,9 @@ Rating -->
             for (var i = 0; i < results.length; i++) {
                 // create a new variable div to store new data
                 var restaurants = $('<div>');
-                restaurants.addClass('listings');
 
+                // Give restaurants a class of 'listings'
+                restaurants.addClass('listings');
 
                 var restaurantName = $('<h3>').text("Restaurant: " + results[i].restaurant.name);
                 // for now include the photo URL since there is no specific photo listing
@@ -77,7 +78,7 @@ Rating -->
                 var address = $('<p>').text("Address: " + results[i].restaurant.location.address);
                 var rating = $('<p>').text('Rating: ' + results[i].restaurant.user_rating.aggregate_rating);
 
-                // Appending the new items to the new iv
+                // Appending the new items to the new div restaurants
                 restaurants.append(restaurantName);
                 restaurants.append(photoURL);
                 restaurants.append(timings);
@@ -86,7 +87,7 @@ Rating -->
                 restaurants.append(address);
                 restaurants.append(rating);
 
-                // Appending the new div to our main divs.
+                // Appending the new div to our main divs in the html.
                 $('.restaurantName').append(restaurants);
                 $('.photos').append(restaurants);
                 $(".timings").append(restaurants);
@@ -95,21 +96,6 @@ Rating -->
                 $('.address').append(restaurants);
                 $('.rating').append(restaurants);
             }
-
-            // $(".restaurantName").text("Name: " + response.restaurants[0].restaurant.name);
-            // $(".url").text("Website: " + response.restaurants[0].restaurant.url);
-            // $(".address").text("Address: " + response.restaurants[0].restaurant.location.address);
-            // $(".rating").text("Rating: " + response.restaurants[0].restaurant.user_rating.aggregate_rating);
-
-            // Create CODE HERE to Log the queryURL
-            // console.log(queryURL);
-            // Create CODE HERE to log the resulting object
-            console.log(response);
-            console.log("Name: " + response.restaurants[0].restaurant.name);
-            console.log("Website: " + response.restaurants[0].restaurant.url);
-            console.log("Address: " + response.restaurants[0].restaurant.location.address);
-            console.log("Rating: " + response.restaurants[0].restaurant.user_rating.aggregate_rating);
-
         });
     </script>
 </body>
