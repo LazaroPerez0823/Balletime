@@ -34,6 +34,8 @@ Rating -->
     <div class="phoneNumbers"></div>
     <div class="url"></div>
     <div class="address"></div>
+    <div class="latitude"></div>
+    <div class="longitude"></div>
     <div class="rating"></div>
     <div class="image"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -82,10 +84,12 @@ Rating -->
                 var phoneNumber = $('<p>').text("Phone Number: " + results[i].restaurant.phone_numbers);
                 var websiteURL = $('<p>').text("Website: " + results[i].restaurant.url);
                 var address = $('<p>').text("Address: " + results[i].restaurant.location.address);
+                var latitude = $('<p>').text("Latitude: " + results[i].restaurant.location.latitude)
+                var longitude = $('<p>').text("longitude: " + results[i].restaurant.location.longitude);
                 var rating = $('<p>').text('Rating: ' + results[i].restaurant.user_rating.aggregate_rating);
 
                 // Appending the new items to the new div restaurants
-                restaurants.append(restaurantName, highlights, photoURL, timings, phoneNumber, websiteURL, address, rating);
+                restaurants.append(restaurantName, highlights, photoURL, timings, phoneNumber, websiteURL, address, latitude, longitude, rating);
                 // restaurants.append(highlights);
                 // restaurants.append(photoURL);
                 // restaurants.append(timings);
@@ -102,6 +106,8 @@ Rating -->
                 $('.phoneNumbers').append(restaurants);
                 $('.url').append(restaurants);
                 $('.address').append(restaurants);
+                $('.latitude').append(restaurants);
+                $('.longitude').append(restaurants);
                 $('.rating').append(restaurants);
             }
         });
