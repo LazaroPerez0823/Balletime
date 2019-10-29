@@ -6,6 +6,7 @@ body {
 
 #titlePage {
     margin: 100px 40%;
+    width: 50%;
 }
 
 .button {
@@ -20,6 +21,10 @@ body {
 .button:hover {
    background: #444;
    cursor: pointer;
+}
+
+#map {
+    height: 100%;
 }
 
 .modal {
@@ -39,10 +44,16 @@ body {
     padding: 20px 30px;
     width: 60%;
     box-shadow: 0 5px 8px 0 rgba(0,0,0,0.5);
+    border-radius: 5px;
+
+}
+
+h1 {
+    text-align: center;
 }
 
 h3 {
-    margin: 10px 0px;
+    margin: 0px;
 }
 
 #closeBtn {
@@ -55,4 +66,24 @@ h3 {
     text-decoration: none;
     color: black;
     cursor: pointer;
+}
+
+#sideContainer {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+
+#sideNav {
+    background-color: whitesmoke;
+    float: left;
+    width: 30%;
+    height: 100%;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    margin-top: 0px;
 }
