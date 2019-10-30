@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
 
     $("#sideContainer").hide();
@@ -41,7 +42,12 @@ $(document).ready(function () {
     });
 
 
+<<<<<<< HEAD
     //dropdown for states menu
+=======
+
+    //dropdown for states menu
+>>>>>>> ebdd122b94663b950d2db9e2dc287c3731a57e22
     for (var i = 0; i < states.length; i++) {
         var dropDown = $("<option>");
         dropDown.addClass("stateOption");
@@ -49,8 +55,12 @@ $(document).ready(function () {
         dropDown.text(states[i]);
         $("#inputState").append(dropDown);
     }
+<<<<<<< HEAD
 
     //dropdown for radius menu
+=======
+  
+>>>>>>> ebdd122b94663b950d2db9e2dc287c3731a57e22
     for (var j = 0; j < radius.length; j++) {
         var radDropdown = $("<option>");
         radDropdown.addClass("radius");
@@ -127,6 +137,7 @@ $(document).ready(function () {
 
         }
     });
+<<<<<<< HEAD
 
     // when search again button gets clicked
 
@@ -144,3 +155,64 @@ $(document).ready(function () {
     // }
 
 });
+=======
+  
+    // search function() {
+    //     //this function happens when you hit search, using the search option parameters
+    // };
+    // findMe function() {
+    //    runMap();
+    // }
+    // directions function() {
+    //     //this function happens in order to get directions
+    // }
+
+    $("#modalFindMeBtn").on("click", function(event) {
+        event.preventDefault()
+            // call outside functions for actions on click
+        runMap();
+        close();
+    });
+
+
+    // When users click "search"
+    $("#modalBtn").on('click', function(event) {
+        // Prevent the page from resetting
+        event.preventDefault();
+
+        // My location variables:
+        // Address, City, State, Zip,
+        var address = $('#inputAddress').val().trim();
+        var city = $('#inputCity').val().trim();
+        var zip = $('#inputZip').val().trim();
+
+        // Clear absolutely everything stored in local storage
+        localStorage.clear();
+
+        // Store the user's location into local storage
+        localStorage.setItem("address", address);
+        localStorage.setItem("city", city);
+        localStorage.setItem("zip", zip);
+
+        // Store the listings in the Nav bar once it's created
+
+    })
+
+    $("#closeBtn, .button").on("click", function(event) {
+        event.preventDefault();
+
+        $("#addressModal").hide();
+    })
+
+    for (var i = 0; i < states.length; i++) {
+        var dropDown = $('<options>');
+        dropDown.addClass('stateOption');
+        dropDown.attr('data-state', states[i]);
+        dropDown.text(states[i]);
+        $('#inputState').append(dropDown);
+
+        console.log($('#inputState').append(dropDown));
+    }
+
+});
+>>>>>>> ebdd122b94663b950d2db9e2dc287c3731a57e22
