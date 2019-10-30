@@ -1,25 +1,31 @@
 body {
     font-family: 'Courier New', Courier, monospace;
     font-size: 20px;
-    line-height:1.8;
+    line-height: 1.8;
 }
 
 #titlePage {
     margin: 100px 40%;
+    width: 50%;
 }
 
 .button {
     background: rgb(255, 102, 0);
     padding: 1em 2em;
-    color:#fff;
+    color: #fff;
     border: 0px;
     border-radius: 5px;
     font-family: 'Courier New', Courier, monospace;
+    margin: 3px;
 }
 
 .button:hover {
-   background: #444;
-   cursor: pointer;
+    background: #444;
+    cursor: pointer;
+}
+
+#map {
+    height: 100%;
 }
 
 .modal {
@@ -28,9 +34,9 @@ body {
     left: 0;
     top: 0;
     height: 100%;
-    width:100%;
+    width: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modalContent {
@@ -38,7 +44,7 @@ body {
     margin: 20% auto;
     padding: 20px 30px;
     width: 60%;
-    box-shadow: 0 5px 8px 0 rgba(0,0,0,0.5);
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.5);
 }
 
 h3 {
@@ -57,12 +63,25 @@ h3 {
     cursor: pointer;
 }
 
-#map {
+
+/* Optional: Makes the sample page fill the window. */
+
+#sideContainer {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
     height: 100%;
-  }
-  /* Optional: Makes the sample page fill the window. */
-  html, body {
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#sideNav {
+    background-color: whitesmoke;
+    float: left;
+    width: 30%;
     height: 100%;
-    margin: 0;
-    padding: 0;
-  }
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    margin-top: 0px;
+}
