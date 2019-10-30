@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
 
     $("#sideContainer").hide();
@@ -21,6 +22,7 @@ $(document).ready(function () {
     });
 
 
+
     //dropdown for states menu
     for (var i = 0; i < states.length; i++) {
         var dropDown = $("<option>");
@@ -29,7 +31,7 @@ $(document).ready(function () {
         dropDown.text(states[i]);
         $("#inputState").append(dropDown);
     }
-    
+  
     for (var j = 0; j < radius.length; j++) {
         var radDropdown = $("<option>");
         radDropdown.addClass("radius");
@@ -56,20 +58,62 @@ $(document).ready(function () {
             
         }        
     });
-
-    // when search again button gets clicked
-
-
+  
     // search function() {
     //     //this function happens when you hit search, using the search option parameters
     // };
-
     // findMe function() {
-    //     //this function happens when you hit find my location, using google geolocation
+    //    runMap();
     // }
-
     // directions function() {
     //     //this function happens in order to get directions
     // }
+
+    $("#modalFindMeBtn").on("click", function(event) {
+        event.preventDefault()
+            // call outside functions for actions on click
+        runMap();
+        close();
+    });
+
+
+    // When users click "search"
+    $("#modalBtn").on('click', function(event) {
+        // Prevent the page from resetting
+        event.preventDefault();
+
+        // My location variables:
+        // Address, City, State, Zip,
+        var address = $('#inputAddress').val().trim();
+        var city = $('#inputCity').val().trim();
+        var zip = $('#inputZip').val().trim();
+
+        // Clear absolutely everything stored in local storage
+        localStorage.clear();
+
+        // Store the user's location into local storage
+        localStorage.setItem("address", address);
+        localStorage.setItem("city", city);
+        localStorage.setItem("zip", zip);
+
+        // Store the listings in the Nav bar once it's created
+
+    })
+
+    $("#closeBtn, .button").on("click", function(event) {
+        event.preventDefault();
+
+        $("#addressModal").hide();
+    })
+
+    for (var i = 0; i < states.length; i++) {
+        var dropDown = $('<options>');
+        dropDown.addClass('stateOption');
+        dropDown.attr('data-state', states[i]);
+        dropDown.text(states[i]);
+        $('#inputState').append(dropDown);
+
+        console.log($('#inputState').append(dropDown));
+    }
 
 });
