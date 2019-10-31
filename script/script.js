@@ -69,14 +69,13 @@ $(document).ready(function() {
     var meters = 1600;
     var queryURL = "https://developers.zomato.com/api/v2.1/search?" + APIKey + "&lat=" + lat + "&lon=" + lng + "&" + "radius=" + meters + "&sort=real_distance";
 
-
     //on search again click, pull single random ajax call
-    $("#searchAgain").on("click", function() {
+    $("#searchAgain").on("click", function () {
 
         $.ajax({
             url: queryURL,
             method: "GET"
-        }).then(function(response) {
+        }).then(function (response) {
             var results = response.restaurants;
 
 
@@ -86,50 +85,49 @@ $(document).ready(function() {
 
 
 
-    for (var k = 0; k < previousPlaces.length; k++) {
-        var placeHolder = $("<li>");
-        var a = $("<a>");
-        var img = $("<img>");
-        var p = $("<p>");
-        var p2 = $("<p>");
-        var name = $("<h4>")
-        placeHolder.addClass("placeCard");
-        name.addClass("restName");
-        name.attr("data-name", previousPlaces[k].restaurantName);
-        name.text(previousPlaces[k].restaurantName);
-        a.addClass("link");
-        a.attr("data-link", previousPlaces[k].url);
-        img.addClass("placePhoto");
-        img.attr("data-photo", previousPlaces[k].photo);
+        for (var k = 0; k < previousPlaces.length; k++) {
+            var placeHolder = $("<li>");
+            var a = $("<a>");
+            var img = $("<img>");
+            var p = $("<p>");
+            var p2 = $("<p>");
+            var name = $("<h4>")
+            placeHolder.addClass("placeCard");
+            name.addClass("restName");
+            name.attr("data-name", previousPlaces[k].restaurantName);
+            name.text(previousPlaces[k].restaurantName);
+            a.addClass("link");
+            a.attr("data-link", previousPlaces[k].url);
+            img.addClass("placePhoto");
+            img.attr("data-photo", previousPlaces[k].photo);
 
-        p.addClass("info");
-        p.attr("data-info", previousPlaces[k].hightlights);
-        p.text(previousPlaces[k].hightlights)
-        p2.addClass("rating");
-        p2.attr("data-rating", previousPlaces[k].rating);
-        p2.text(previousPlaces[k].rating);
+            p.addClass("info");
+            p.attr("data-info", previousPlaces[k].hightlights);
+            p.text(previousPlaces[k].hightlights)
+            p2.addClass("rating");
+            p2.attr("data-rating", previousPlaces[k].rating);
+            p2.text(previousPlaces[k].rating);
 
-        a.append(p, p2, name, img);
-        placeHolder.append(a);
+            a.append(p, p2, name, img);
+            placeHolder.append(a);
 
-        $("#sideNav").append(placeHolder);
-    }
-
+            $("#sideNav").append(placeHolder);
+        }
+    
 
     //show side nav
-    $("#prevSearches").on("click", function() {
+    $("#prevSearches").on("click", function () {
         $("#sideContainer").show();
     });
 
     //hide side nav when clicked outside
-    $(document).mouseup(function(i) {
+    $(document).mouseup(function (i) {
         var sideList = $("#sideNav");
         if (!sideList.is(i.target) && sideList.has(i.target).length === 0) {
             $("#sideContainer").hide();
 
         }
     });
-
     // search function() {
     //     //this function happens when you hit search, using the search option parameters
     // };
@@ -140,12 +138,13 @@ $(document).ready(function() {
     //     //this function happens in order to get directions
     // }
 
-    // $("#modalFindMeBtn").on("click", function(event) {
-    //     event.preventDefault()
-    //         // call outside functions for actions on click
-    //     runMap();
-    //     close();
-    // });
+    $("#modalFindMeBtn").on("click", function(event) {
+        event.preventDefault()
+            // call outside functions for actions on click
+        runMap();
+        close();
+    });
+
 
     $("#modalFindMeBtn").click(function() {
         event.preventDefault();
@@ -181,16 +180,6 @@ $(document).ready(function() {
 
         $("#addressModal").hide();
     })
-
-    for (var i = 0; i < states.length; i++) {
-        var dropDown = $('<options>');
-        dropDown.addClass('stateOption');
-        dropDown.attr('data-state', states[i]);
-        dropDown.text(states[i]);
-        $('#inputState').append(dropDown);
-
-        console.log($('#inputState').append(dropDown));
-    }
 
     // MAP FUNCTIONS
     //Displays map on screen
@@ -237,7 +226,6 @@ $(document).ready(function() {
         infoWindow.open(map);
     }
 
-    // ================================================================================================================
     // Zamato API Info
 
     var baseURL = "https://developers.zomato.com/api/v2.1/search?"
