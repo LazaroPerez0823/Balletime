@@ -5,28 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
-    <script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
 
-    <title>HANGRY</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <title>We Should I Eat??</title>
+
 </head>
 
 <body>
-       
-
     <div id="container">
-            <div id="titlePage">
-            <h1>Hangry?</h1>
-            <div id="displayContent" >
-                <div id="map">
-
-                </div>
-                <button id="searchAgain" class="button">Find Me Food!</button>
+        <div id="titlePage">
+            <h1>Where Should I Eat??</h1>
+            <div id="displayContent">
+                <div id="map"></div>
+                <button id="searchAgain" class="button">Find A Place</button>
             </div>
+            <button id="prevSearches" class="button">Previous Searches</button>
 
+        </div>
+
+        <div id="sideContainer">
+            <ul id="sideNav">
+            </ul>
         </div>
 
         <div id="addressModal" class="modal">
@@ -45,25 +47,44 @@
                     <div class="form-row">
                         <label for="inputState">State:</label>
                         <select id="inputState" class="form-control">
-                            <option selected>Choose...</option>
-                            
-                        </select>
+                           <option selected>Choose...</option>
+                       </select>
                     </div>
                     <div class="form-row">
                         <label for="inputZip">Zip:</label>
                         <input type="text" class="form-control" id="inputZip">
                     </div>
+                    <div class="form-row">
+                        <label for="inputRadius">Radius:</label>
+                        <select class="form-control" id="inputRadius">
+                           <option selected>Choose...</option>
+                       </select>
+                    </div>
                     <button id="modalGoBtn" class="button">Search</button>
                     <button id="modalFindMeBtn" class="button">Find My Location</button>
-
                 </form>
             </div>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Retrieved data from Zamato will be dumped here (for now) -->
+    <div class="restaurantName"></div>
+    <div class="highlights"></div>
+    <div class="photos"></div>
+    <div class="timings"></div>
+    <div class="phoneNumbers"></div>
+    <div class="url"></div>
+    <div class="address"></div>
+    <div class="latitude"></div>
+    <div class="longitude"></div>
+    <div class="rating"></div>
+    <div class="image"></div>
+
     <!-- This is a jQuery CND for cookies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script src="script/script.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAE2CIuMnHiuUN7XLs9fRiATGN1gD-t0LY&callback=initMap">
+    </script>
 </body>
 
 </html>
