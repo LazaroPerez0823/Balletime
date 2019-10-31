@@ -302,7 +302,7 @@ $(document).ready(function() {
             $('.address').append(restaurants);
             $('.latitude').append(restaurants);
             $('.longitude').append(restaurants);
-            $('.rating').append(restaurants);
+            $('.restaurant-rating').append(restaurants);
         }
     });
 
