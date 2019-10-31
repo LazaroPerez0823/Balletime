@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,21 +14,17 @@
 
 </head>
 
-    <title>We Should I Eat??</title>
-
-</head>
 <body>
     <div id="container">
         <div id="titlePage">
-            <h1>Where Should I Eat??</h1>
+            <h1>Hangry?</h1>
             <div id="displayContent">
                 <div id="map"></div>
                 <button id="searchAgain" class="button">Find A Place</button>
             </div>
             <button id="prevSearches" class="button">Previous Searches</button>
-
         </div>
-
+      
         <div id="sideContainer">
             <ul id="sideNav">
             </ul>
@@ -48,17 +45,16 @@
                    </div>
                    <div class="form-row">
                        <label for="inputState">State:</label>
-                       <select id="inputState" class="form-control">
-                           <option selected>Choose...</option>
+                                            <option selected>Choose...</option>
                        </select>
-                   </div>
-                   <div class="form-row">
-                       <label for="inputZip">Zip:</label>
-                       <input type="text" class="form-control" id="inputZip">
-                   </div>
-                   <div class="form-row">
-                       <label for="inputRadius">Radius:</label>
-                       <select class="form-control" id="inputRadius">
+                    </div>
+                    <div class="form-row">
+                        <label for="inputZip">Zip:</label>
+                        <input type="text" class="form-control" id="inputZip">
+                    </div>
+                    <div class="form-row">
+                        <label for="inputRadius">Radius:</label>
+                        <select class="form-control" id="inputRadius">
                            <option selected>Choose...</option>
                        </select>
                    </div>
@@ -80,6 +76,8 @@
     <div class="address"></div>
     <div class="latitude"></div>
     <div class="longitude"></div>
+    <div class="rating"></div>
+    <div class="image"></div>
     <div class="restaurant-rating"></div>
     <div class="image"></div>
 
@@ -88,12 +86,6 @@
     <script src="script/script.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAE2CIuMnHiuUN7XLs9fRiATGN1gD-t0LY&callback=initMap">
     </script>
-
-
-
-     
-       
-
-       
 </body>
+
 </html>

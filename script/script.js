@@ -1,8 +1,8 @@
+
 $(document).ready(function() {
 
     $("#sideContainer").hide();
-
-    //dropdown for states
+    //dropdown for states
     var states = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida",
         "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana",
         "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana",
@@ -10,8 +10,12 @@ $(document).ready(function() {
         "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota",
         "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
     ];
-
     var radius = [0.5, 1, 2, 5, 8, 10, 15, 20, 30, 50];
+    var previousPlaces = [];
+
+    //close modal on click
+    $("#closeBtn, .button").on("click", function(event) {
+
 
     //previous objects array
     var previousPlaces = [{
@@ -41,7 +45,6 @@ $(document).ready(function() {
         $("#addressModal").hide();
     });
 
-
     //dropdown for states menu
     for (var i = 0; i < states.length; i++) {
         var dropDown = $("<option>");
@@ -52,7 +55,6 @@ $(document).ready(function() {
     }
 
     //dropdown for radius menu
-
     for (var j = 0; j < radius.length; j++) {
         var radDropdown = $("<option>");
         radDropdown.addClass("radius");
@@ -61,7 +63,17 @@ $(document).ready(function() {
         $("#inputRadius").append(radDropdown);
     }
 
-    // ======================================================================================================================================
+    $("#prevSearches").on("click", function() {
+        $("#sideContainer").show();
+    });
+    $(document).mouseup(function(i) {
+        var sideList = $("#sideNav");
+        if (!sideList.is(i.target) && sideList.has(i.target).length === 0) {
+            $("#sideContainer").hide();
+        }
+    });
+
+
 
     var baseURL = "https://developers.zomato.com/api/v2.1/search?"
     var APIKey = "apikey=2acf625e70fd25f7205fda31a0f6cb15&";
@@ -152,29 +164,20 @@ $(document).ready(function() {
     }
 
 
-    //show side nav
-    $("#prevSearches").on("click", function() {
-        $("#sideContainer").show();
-    });
+      // when search again button gets clicked
 
-    //hide side nav when clicked outside
-    $(document).mouseup(function(i) {
-        var sideList = $("#sideNav");
-        if (!sideList.is(i.target) && sideList.has(i.target).length === 0) {
-            $("#sideContainer").hide();
-
-        }
-    });
     // search function() {
     //     //this function happens when you hit search, using the search option parameters
     // };
     // findMe function() {
-    //    runMap();
+    //     //this function happens when you hit find my location, using google geolocation
     // }
     // directions function() {
     //     //this function happens in order to get directions
     // }
 
+      // Zamato API AJAX Call
+    var baseURL = "https://developers.zomato.com/api/v2.1/search?"
     $("#modalFindMeBtn").on("click", function(event) {
         event.preventDefault()
             // call outside functions for actions on click
@@ -218,9 +221,7 @@ $(document).ready(function() {
         $("#addressModal").hide();
     });
 
-    // =====================================================================================================================================
-
-    // MAP FUNCTIONS
+      // MAP FUNCTIONS
     //Displays map on screen
     var map, infoWindow;
     infoWindow = new google.maps.InfoWindow;
@@ -269,12 +270,6 @@ $(document).ready(function() {
     // Zamato API Info
 
     var baseURL = "https://developers.zomato.com/api/v2.1/search?"
-
-    // This is our API key. Add your own API key between the ""
-    var APIKey = "apikey=2acf625e70fd25f7205fda31a0f6cb15&";
-    var lat = 40.730511299999996;
-    var lng = -74.065955;
-    var meters = 1600;
 
     // var searchCategory = s;
 
