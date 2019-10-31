@@ -1,13 +1,14 @@
 
 $(document).ready(function() {
+
     $("#sideContainer").hide();
     //dropdown for states
     var states = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida",
         "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana",
         "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana",
-        "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina",
-        "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota",
-        "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+        "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina",
+        "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota",
+        "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
     ];
     var radius = [0.5, 1, 2, 5, 8, 10, 15, 20, 30, 50];
     var previousPlaces = [];
@@ -17,8 +18,7 @@ $(document).ready(function() {
 
 
     //previous objects array
-    var previousPlaces = [
-        {
+    var previousPlaces = [{
             restaurantName: "java juice",
             hightlights: "breakfast",
             photo: "imgurl",
@@ -35,11 +35,11 @@ $(document).ready(function() {
             longitude: "not there",
             rating: 4,
             url: "link to another page",
-        }];
+        }
+    ];
 
     //close modal on click
-    $("#closeBtn, .button").on("click", function (event) {
-
+    $("#closeBtn, .button").on("click", function(event) {
         event.preventDefault();
         // call outside functions for actions on click
         $("#addressModal").hide();
@@ -54,6 +54,7 @@ $(document).ready(function() {
         $("#inputState").append(dropDown);
     }
 
+    //dropdown for radius menu
     for (var j = 0; j < radius.length; j++) {
         var radDropdown = $("<option>");
         radDropdown.addClass("radius");
@@ -80,7 +81,6 @@ $(document).ready(function() {
     var lng = -74.065955;
     var meters = 1600;
     var queryURL = "https://developers.zomato.com/api/v2.1/search?" + APIKey + "&lat=" + lat + "&lon=" + lng + "&" + "radius=" + meters + "&sort=real_distance";
-
 
     //on search again click, pull single random ajax call
     $("#searchAgain").on("click", function () {
@@ -141,10 +141,8 @@ $(document).ready(function() {
 
         }
     });
-
-
-    // when search again button gets clicked
-
+      
+      // when search again button gets clicked
 
     // search function() {
     //     //this function happens when you hit search, using the search option parameters
@@ -156,15 +154,92 @@ $(document).ready(function() {
     //     //this function happens in order to get directions
     // }
 
-    // ==========================================================================================================
-    // Zamato API AJAX Call
+      // Zamato API AJAX Call
     var baseURL = "https://developers.zomato.com/api/v2.1/search?"
+    $("#modalFindMeBtn").on("click", function(event) {
+        event.preventDefault()
+            // call outside functions for actions on click
+        runMap();
+        close();
+    });
 
-    // This is our API key. Add your own API key between the ""
-    var APIKey = "apikey=2acf625e70fd25f7205fda31a0f6cb15&";
-    var lat = 40.730511299999996;
-    var lng = -74.065955;
-    var meters = 1600;
+
+    $("#modalFindMeBtn").click(function() {
+        event.preventDefault();
+        findLocation();
+    });
+
+
+    // When users click "search"
+    $("#modalBtn").on('click', function(event) {
+        // Prevent the page from resetting
+        event.preventDefault();
+
+        // My location variables:
+        // Address, City, State, Zip,
+        var address = $('#inputAddress').val().trim();
+        var city = $('#inputCity').val().trim();
+        var zip = $('#inputZip').val().trim();
+
+        // Clear absolutely everything stored in local storage
+        localStorage.clear();
+
+        // Store the user's location into local storage
+        localStorage.setItem("address", address);
+        localStorage.setItem("city", city);
+        localStorage.setItem("zip", zip);
+
+        // Store the listings in the Nav bar once it's created
+
+  
+    // MAP FUNCTIONS
+    //Displays map on screen
+    var map, infoWindow;
+    infoWindow = new google.maps.InfoWindow;
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: {
+            lat: 38.7555258,
+            lng: -80.04494120000001
+        },
+        zoom: 15
+    });
+
+    //Calls function to location you on the map
+    function findLocation() {
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                console.log("Lat " + pos.lat);
+                console.log("Lng " + pos.lng);
+                infoWindow.setPosition(pos);
+                infoWindow.setContent('Location found.');
+                infoWindow.open(map);
+                map.setCenter(pos);
+            }, function() {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+    }
+
+    //Googles error message handling if browser or computer doesn't support GPS
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+            'Error: The Geolocation service failed.' :
+            'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+    }
+
+    // Zamato API Info
+
+    var baseURL = "https://developers.zomato.com/api/v2.1/search?"
 
     // var searchCategory = s;
 
@@ -198,6 +273,7 @@ $(document).ready(function() {
 
             // To view photo, user will have to click on the URL
             var photoURL = $('<p>').text("Photos: " + results[i].restaurant.photos_url);
+
             var timings = $('<p>').text("Timings: " + results[i].restaurant.timings);
             var phoneNumber = $('<p>').text("Phone Number: " + results[i].restaurant.phone_numbers);
             var websiteURL = $('<p>').text("Website: " + results[i].restaurant.url);
@@ -219,9 +295,18 @@ $(document).ready(function() {
             $('.address').append(restaurants);
             $('.latitude').append(restaurants);
             $('.longitude').append(restaurants);
-            $('.rating').append(restaurants);
+            $('.restaurant-rating').append(restaurants);
         }
     });
 
+    // latitude variable for Google Maps API
+    // var foodLat = results[i].restaurant.location.latitude;
+
+    // Longitude variable for Google Maps API
+    // var foodLong = results[i].restaurant.location.longitude;
+
+    // random number generator
+    // var randomNumber = Math.floor(Math.random() * 19);
+    // console.log(randomNumber);
 
 });
