@@ -83,65 +83,87 @@ $(document).ready(function() {
     var queryURL = "https://developers.zomato.com/api/v2.1/search?" + APIKey + "&lat=" + lat + "&lon=" + lng + "&" + "radius=" + meters + "&sort=real_distance";
 
     //on search again click, pull single random ajax call
-    $("#searchAgain").on("click", function () {
+    $("#searchAgain").on("click", function() {
 
         $.ajax({
             url: queryURL,
             method: "GET"
-        }).then(function (response) {
+        }).then(function(response) {
             var results = response.restaurants;
 
+            // random number generator
+            var randomNumber = results[Math.floor(Math.random() * 20)];
+            console.log(randomNumber);
 
+            for (var i = 0; i < results.length; i++) {
+                // create a new variable div to store new data
+                // var restaurants = $('<div>');
+                var placeHolder = $('<li>');
+                var a = $('<a>');
+                var img = $('<img>');
+                var p = $('<p>');
+                var p2 = $('<p>');
+                var name = $('<h4>');
 
+                placeHolder.addClass("placeCard");
+                name.addClass("restName");
+                name.attr('data-name', results[i].restaurant.name) // missing
+                name.text(results[i].restaurant.name);
+
+                a.addClass("link");
+                a.attr("data-link", results[i].restaurant.url);
+                img.addClass("placePhoto");
+                img.attr("data-photo", results[i].restaurant.photo);
+
+                p.addClass("info");
+                p.attr("data-info", results[i].restaurant.hightlights);
+                p.text(results[i].restaurant.hightlights);
+
+                p2.addClass("rating");
+                p2.attr("data-rating", results[i].restaurant.user_rating.aggregate_rating);
+                p2.text(results[i].restaurant.user_rating.aggregate_rating);
+
+                a.append(p, p2, name, img);
+                placeHolder.append(a);
+
+                $("#sideNav").append(placeHolder);
+            }
         });
+
     })
 
 
 
-        for (var k = 0; k < previousPlaces.length; k++) {
-            var placeHolder = $("<li>");
-            var a = $("<a>");
-            var img = $("<img>");
-            var p = $("<p>");
-            var p2 = $("<p>");
-            var name = $("<h4>")
-            placeHolder.addClass("placeCard");
-            name.addClass("restName");
-            name.attr("data-name", previousPlaces[k].restaurantName);
-            name.text(previousPlaces[k].restaurantName);
-            a.addClass("link");
-            a.attr("data-link", previousPlaces[k].url);
-            img.addClass("placePhoto");
-            img.attr("data-photo", previousPlaces[k].photo);
+    for (var k = 0; k < previousPlaces.length; k++) {
+        var placeHolder = $("<li>");
+        var a = $("<a>");
+        var img = $("<img>");
+        var p = $("<p>");
+        var p2 = $("<p>");
+        var name = $("<h4>")
+        placeHolder.addClass("placeCard");
+        name.addClass("restName");
+        name.attr("data-name", previousPlaces[k].restaurantName);
+        name.text(previousPlaces[k].restaurantName);
+        a.addClass("link");
+        a.attr("data-link", previousPlaces[k].url);
+        img.addClass("placePhoto");
+        img.attr("data-photo", previousPlaces[k].photo);
 
-            p.addClass("info");
-            p.attr("data-info", previousPlaces[k].hightlights);
-            p.text(previousPlaces[k].hightlights)
-            p2.addClass("rating");
-            p2.attr("data-rating", previousPlaces[k].rating);
-            p2.text(previousPlaces[k].rating);
+        p.addClass("info");
+        p.attr("data-info", previousPlaces[k].hightlights);
+        p.text(previousPlaces[k].hightlights)
+        p2.addClass("rating");
+        p2.attr("data-rating", previousPlaces[k].rating);
+        p2.text(previousPlaces[k].rating);
 
-            a.append(p, p2, name, img);
-            placeHolder.append(a);
+        a.append(p, p2, name, img);
+        placeHolder.append(a);
 
-            $("#sideNav").append(placeHolder);
-        }
-    
+        $("#sideNav").append(placeHolder);
+    }
 
-    //show side nav
-    $("#prevSearches").on("click", function () {
-        $("#sideContainer").show();
-    });
 
-    //hide side nav when clicked outside
-    $(document).mouseup(function (i) {
-        var sideList = $("#sideNav");
-        if (!sideList.is(i.target) && sideList.has(i.target).length === 0) {
-            $("#sideContainer").hide();
-
-        }
-    });
-      
       // when search again button gets clicked
 
     // search function() {
@@ -191,8 +213,15 @@ $(document).ready(function() {
 
         // Store the listings in the Nav bar once it's created
 
-  
-    // MAP FUNCTIONS
+    });
+
+    $("#closeBtn, .button").on("click", function(event) {
+        event.preventDefault();
+
+        $("#addressModal").hide();
+    });
+
+      // MAP FUNCTIONS
     //Displays map on screen
     var map, infoWindow;
     infoWindow = new google.maps.InfoWindow;
@@ -236,6 +265,7 @@ $(document).ready(function() {
             'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(map);
     }
+
 
     // Zamato API Info
 
@@ -302,11 +332,7 @@ $(document).ready(function() {
     // latitude variable for Google Maps API
     // var foodLat = results[i].restaurant.location.latitude;
 
-    // Longitude variable for Google Maps API
-    // var foodLong = results[i].restaurant.location.longitude;
 
-    // random number generator
-    // var randomNumber = Math.floor(Math.random() * 19);
-    // console.log(randomNumber);
+
 
 });
