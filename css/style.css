@@ -1,25 +1,42 @@
 body {
     font-family: 'Courier New', Courier, monospace;
     font-size: 20px;
-    line-height:1.8;
+    line-height: 1.8;
+    height: 100%;
+    margin: 0;
+}
+
+
+/* Optional: Makes the sample page fill the window. */
+
+html,
+body {
+    padding: 0;
 }
 
 #titlePage {
     margin: 100px 40%;
+    width: 50%;
 }
 
 .button {
     background: rgb(255, 102, 0);
     padding: 1em 2em;
-    color:#fff;
+    color: #fff;
     border: 0px;
     border-radius: 5px;
     font-family: 'Courier New', Courier, monospace;
 }
 
 .button:hover {
-   background: #444;
-   cursor: pointer;
+    background: #444;
+    cursor: pointer;
+}
+
+#map {
+    height: 250px;
+    width: 400px;
+    margin-bottom: 15px;
 }
 
 .modal {
@@ -28,9 +45,9 @@ body {
     left: 0;
     top: 0;
     height: 100%;
-    width:100%;
+    width: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modalContent {
@@ -38,11 +55,34 @@ body {
     margin: 20% auto;
     padding: 20px 30px;
     width: 60%;
-    box-shadow: 0 5px 8px 0 rgba(0,0,0,0.5);
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 2.2em;
 }
 
 h3 {
-    margin: 10px 0px;
+    font-weight: bold;
+    font-size: 1.8em;
+}
+
+h4 {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin: 0px;
+}
+
+ul {
+    list-style: initial;
+    margin: initial;
+    padding: 0 0 0 40px;
+}
+
+li {
+    display: list-item;
 }
 
 #closeBtn {
@@ -55,4 +95,24 @@ h3 {
     text-decoration: none;
     color: black;
     cursor: pointer;
+}
+
+#sideContainer {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#sideNav {
+    background-color: whitesmoke;
+    float: left;
+    width: 30%;
+    height: 100%;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    margin-top: 0px;
 }
