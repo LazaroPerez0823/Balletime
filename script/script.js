@@ -157,7 +157,7 @@ $(document).ready(function() {
         });
     });
     
-    $("#closeBtn, .button").on("click", function(event) {
+    $(".button").on("click", function(event) {
         event.preventDefault();
         $("#addressModal").hide();
     })

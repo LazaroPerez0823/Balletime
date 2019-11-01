@@ -11,8 +11,9 @@ body {
     padding: 0;
 }
 #titlePage {
-    margin: 100px 40%;
-    width: 50%;
+    margin: 10% 10%;
+    width: 80%;
+    height: 100%;
 }
 .button {
     background: rgb(255, 102, 0);
@@ -100,4 +101,6 @@ li
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
     margin-top: 0px;
 }
+
+
 
