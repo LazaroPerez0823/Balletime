@@ -86,7 +86,7 @@ var results;
         event.preventDefault()
             // call outside functions for actions on click
         findLocation();
-        getFoodSpots();
+        
     });
     // $("#modalFindMeBtn").click(function() {
     //     event.preventDefault();
@@ -107,9 +107,7 @@ var results;
         console.log(userCity);
         console.log(userState);
         console.log(meters);
-
-        getFoodSpots();
-        
+              
         // Clear absolutely everything stored in local storage
         // localStorage.clear();
         // // Store the user's location into local storage
@@ -137,8 +135,10 @@ var results;
            var pos = {
             lat: userLat,
             lng: userLng
-        };
 
+            
+        };
+        getFoodSpots();
               
         infoWindow = new google.maps.InfoWindow;
            map = new google.maps.Map(document.getElementById('map'), {
@@ -189,6 +189,11 @@ var results;
                 infoWindow.setContent('You.');
                 infoWindow.open(map);
                 map.setCenter(pos);
+                userLat = position.coords.latitude;
+                userLng = position.coords.longitude;
+                console.log(userLat);
+                console.log(userLng);
+                getFoodSpots();
             }, function() {
                 handleLocationError(true, infoWindow, map.getCenter());
             });
@@ -213,20 +218,55 @@ var results;
 
         var zBaseURL = "https://developers.zomato.com/api/v2.1/search?"
         var APIKey = "apikey=2acf625e70fd25f7205fda31a0f6cb15&";
-        var queryURL = "https://developers.zomato.com/api/v2.1/search?" + APIKey + "&lat=" + userLat + "&lon=" + userLng + "&" + "radius=" + meters;
+        var queryURL = "https://developers.zomato.com/api/v2.1/search?" + APIKey + "&lat=" + userLat + "&lon=" + userLng + "&" + "radius=" + meters + "&sort=real_distance";
                   $.ajax({
                 url: queryURL,
                 method: "GET"
             }).then(function(response) {
                 results = response.restaurants;
+                console.log(userLat);
+                console.log(userLng);
         console.log(results);
             });
         
         }
     
+
+function destMap() {
+
+       
+        var map, infoWindow;
+        var pos = {
+         lat: destLat,
+         lng: destLng
+     };
+
+           
+     infoWindow = new google.maps.InfoWindow;
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {
+                lat: destLat,
+                lng: destLng,
+            },
+            
+            zoom: 15
+        });
+
+        infoWindow.setPosition(pos);
+        infoWindow.setContent('FOOD.');
+        infoWindow.open(map);
+        map.setCenter(pos);
+
+
+
+    };
+
+
+
+
      $("#searchAgain").on("click", function() {
             var randomNumber = [Math.floor(Math.random() * 20)];
-            console.log(randomNumber);
+            console.log(results[randomNumber]);
             i = randomNumber
                 var placeHolder = $('<li>');
                 var a = $('<a>');
@@ -251,6 +291,11 @@ var results;
                 a.append(p, p2, name, img);
                 placeHolder.append(a);
                 $("#sideNav").append(placeHolder);
+                destLat = results[i].restaurant.location.latitude;
+                destLng = results[i].restaurant.location.longitude;
+              destMap();
+                console.log("dest lat " + destLat)
+                console.log("dest lng " + destLng)
             });
         
 
