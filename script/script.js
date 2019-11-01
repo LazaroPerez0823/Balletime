@@ -43,8 +43,6 @@ $(document).ready(function () {
         radDropdown.text(radius[j]);
         $("#inputRadius").append(radDropdown);
     }
-
-
     //show side nav
     $("#prevSearches").on("click", function () {
         $("#sideContainer").show();
@@ -62,7 +60,6 @@ $(document).ready(function () {
         event.preventDefault()
         // call outside functions for actions on click
         findLocation();
-
     });
 
     // When users click "search"
@@ -75,6 +72,7 @@ $(document).ready(function () {
         var userCity = $('#inputCity').val().trim().split(' ').join('+');
         var userState = $('#inputState').val().trim();
         userRadius = $('#inputRadius').val().trim();
+
         meters = parseInt(userRadius * 1609.344);
 
         var APIKey = "&key=AIzaSyAE2CIuMnHiuUN7XLs9fRiATGN1gD-t0LY";
@@ -134,7 +132,6 @@ $(document).ready(function () {
     function findLocation() {
         userRadius = $('#inputRadius').val().trim();
         meters = parseInt(userRadius * 1609.344);
-
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
