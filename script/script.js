@@ -224,34 +224,35 @@ var results;
         
         }
     
-          //on search again click, pull single random ajax call
-    // $("#searchAgain").on("click", function() {
-    
-        // for (var k = 0; k < previousPlaces.length; k++) {
-        //     var placeHolder = $("<li>");
-        //     var a = $("<a>");
-        //     var img = $("<img>");
-        //     var p = $("<p>");
-        //     var p2 = $("<p>");
-        //     var name = $("<h4>")
-        //     placeHolder.addClass("placeCard");
-        //     name.addClass("restName");
-        //     name.attr("data-name", previousPlaces[k].restaurantName);
-        //     name.text(previousPlaces[k].restaurantName);
-        //     a.addClass("link");
-        //     a.attr("data-link", previousPlaces[k].url);
-        //     img.addClass("placePhoto");
-        //     img.attr("data-photo", previousPlaces[k].photo);
-        //     p.addClass("info");
-        //     p.attr("data-info", previousPlaces[k].hightlights);
-        //     p.text(previousPlaces[k].hightlights)
-        //     p2.addClass("rating");
-        //     p2.attr("data-rating", previousPlaces[k].rating);
-        //     p2.text(previousPlaces[k].rating);
-        //     a.append(p, p2, name, img);
-        //     placeHolder.append(a);
-        //     $("#sideNav").append(placeHolder);
-        // }
+     $("#searchAgain").on("click", function() {
+            var randomNumber = [Math.floor(Math.random() * 20)];
+            console.log(randomNumber);
+            i = randomNumber
+                var placeHolder = $('<li>');
+                var a = $('<a>');
+                var img = $('<img>');
+                var p = $('<p>');
+                var p2 = $('<p>');
+                var name = $('<h4>');
+                placeHolder.addClass("placeCard");
+                name.addClass("restName");
+                name.attr('data-name', results[i].restaurant.name);
+                name.text(results[i].restaurant.name);
+                a.addClass("link");
+                a.attr("data-link", results[i].restaurant.url);
+                img.addClass("placePhoto");
+                img.attr("data-photo", results[i].restaurant.photo);
+                p.addClass("info");
+                p.attr("data-info", results[i].restaurant.hightlights);
+                p.text(results[i].restaurant.hightlights);
+                p2.addClass("rating");
+                p2.attr("data-rating", results[i].restaurant.user_rating.aggregate_rating);
+                p2.text(results[i].restaurant.user_rating.aggregate_rating);
+                a.append(p, p2, name, img);
+                placeHolder.append(a);
+                $("#sideNav").append(placeHolder);
+            });
+        
 
 
 
