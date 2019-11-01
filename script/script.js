@@ -156,6 +156,7 @@ $(document).ready(function() {
                 console.log(response);
         });
     });
+    
     $("#closeBtn, .button").on("click", function(event) {
         event.preventDefault();
         $("#addressModal").hide();
@@ -217,4 +218,5 @@ $(document).ready(function() {
     //             console.log(response);
     //     }
 });
+
 
