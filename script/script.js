@@ -233,30 +233,32 @@ var results;
     
 
 function destMap() {
-
+lat = destLat;
+lng = destLng;
+     var map, infoWindow;
+    var pos = {
+     lat,
+     lng,
+    
+ };
+ 
        
-        var map, infoWindow;
-        var pos = {
-         lat: destLat,
-         lng: destLng
-     };
+ infoWindow = new google.maps.InfoWindow;
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: {
+            lat: destLat,
+            lng: destLng,
+        },
+        
+        zoom: 15
+    });
 
-           
-     infoWindow = new google.maps.InfoWindow;
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: {
-                lat: destLat,
-                lng: destLng,
-            },
-            
-            zoom: 15
-        });
-
-        infoWindow.setPosition(pos);
-        infoWindow.setContent('FOOD.');
-        infoWindow.open(map);
-        map.setCenter(pos);
-
+    infoWindow.setPosition(pos);
+    infoWindow.setContent('Food.');
+    infoWindow.open(map);
+    map.setCenter(pos);
+console.log(lat);
+console.log(lng);
 
 
     };
@@ -291,22 +293,13 @@ function destMap() {
                 a.append(p, p2, name, img);
                 placeHolder.append(a);
                 $("#sideNav").append(placeHolder);
-                destLat = results[i].restaurant.location.latitude;
-                destLng = results[i].restaurant.location.longitude;
-              destMap();
-                console.log("dest lat " + destLat)
-                console.log("dest lng " + destLng)
+                destLat = (results[i].restaurant.location.latitude * 1);
+                destLng = (results[i].restaurant.location.longitude * 1);
+                destMap();
+                
+             
             });
         
-
-
-
-
-
-
-
-
-
 
 });
 
