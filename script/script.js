@@ -1,4 +1,13 @@
 $(document).ready(function() {
+
+var userLat;
+var userLng;
+var destLat;
+var destLng;
+var userRadius;
+var meters = 804;
+var results;
+
     $("#sideContainer").hide();
     //dropdown for states
     var states = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida",
@@ -51,47 +60,8 @@ $(document).ready(function() {
         radDropdown.text(radius[j]);
         $("#inputRadius").append(radDropdown);
     }
-    // put in function
-    var baseURL = "https://developers.zomato.com/api/v2.1/search?"
-    var APIKey = "apikey=2acf625e70fd25f7205fda31a0f6cb15&";
-    var lat = 40.730511299999996;
-    var lng = -74.065955;
-    var meters = 1600;
-    var queryURL = "https://developers.zomato.com/api/v2.1/search?" + APIKey + "&lat=" + lat + "&lon=" + lng + "&" + "radius=" + meters + "&sort=real_distance";
-    //on search again click, pull single random ajax call
-    $("#searchAgain").on("click", function() {
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        }).then(function(response) {
-            var results = response.restaurants;
-        });
-    })
-    for (var k = 0; k < previousPlaces.length; k++) {
-        var placeHolder = $("<li>");
-        var a = $("<a>");
-        var img = $("<img>");
-        var p = $("<p>");
-        var p2 = $("<p>");
-        var name = $("<h4>")
-        placeHolder.addClass("placeCard");
-        name.addClass("restName");
-        name.attr("data-name", previousPlaces[k].restaurantName);
-        name.text(previousPlaces[k].restaurantName);
-        a.addClass("link");
-        a.attr("data-link", previousPlaces[k].url);
-        img.addClass("placePhoto");
-        img.attr("data-photo", previousPlaces[k].photo);
-        p.addClass("info");
-        p.attr("data-info", previousPlaces[k].hightlights);
-        p.text(previousPlaces[k].hightlights)
-        p2.addClass("rating");
-        p2.attr("data-rating", previousPlaces[k].rating);
-        p2.text(previousPlaces[k].rating);
-        a.append(p, p2, name, img);
-        placeHolder.append(a);
-        $("#sideNav").append(placeHolder);
-    }
+    
+
     //show side nav
     $("#prevSearches").on("click", function() {
         $("#sideContainer").show();
@@ -116,6 +86,7 @@ $(document).ready(function() {
         event.preventDefault()
             // call outside functions for actions on click
         findLocation();
+        getFoodSpots();
     });
     // $("#modalFindMeBtn").click(function() {
     //     event.preventDefault();
@@ -130,11 +101,15 @@ $(document).ready(function() {
         var userAddress = $('#inputAddress').val().trim().split(' ').join('+');
         var userCity = $('#inputCity').val().trim().split(' ').join('+');
         var userState = $('#inputState').val().trim();
-        var userRadius = $('#inputRadius').val().trim();
+        userRadius = $('#inputRadius').val().trim();
+        meters = parseInt(userRadius * 1609.344)
         console.log(userAddress);
         console.log(userCity);
         console.log(userState);
-        console.log(userRadius);
+        console.log(meters);
+
+        getFoodSpots();
+        
         // Clear absolutely everything stored in local storage
         // localStorage.clear();
         // // Store the user's location into local storage
@@ -153,7 +128,33 @@ $(document).ready(function() {
                 // Loop through 20 results of i
                 // grab their location, images, phone number, timings(lucnh, dinner, (sun, sat), breakfast, etc... )
                 // Pull the restaurant images
-                console.log(response);
+                // console.log(response);
+               
+           userLat = (response.results[0].geometry.location.lat);
+           userLng = (response.results[0].geometry.location.lng);
+           
+           var map, infoWindow;
+           var pos = {
+            lat: userLat,
+            lng: userLng
+        };
+
+              
+        infoWindow = new google.maps.InfoWindow;
+           map = new google.maps.Map(document.getElementById('map'), {
+               center: {
+                   lat: userLat,
+                   lng: userLng,
+               },
+               
+               zoom: 15
+           });
+
+           infoWindow.setPosition(pos);
+           infoWindow.setContent('You.');
+           infoWindow.open(map);
+           map.setCenter(pos);
+
         });
     });
     
@@ -174,6 +175,9 @@ $(document).ready(function() {
     });
     //Calls function to location you on the map
     function findLocation() {
+        userRadius = $('#inputRadius').val().trim();
+        meters = parseInt(userRadius * 1609.344);
+ 
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
@@ -181,10 +185,8 @@ $(document).ready(function() {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
                 };
-                console.log("Lat " + pos.lat);
-                console.log("Lng " + pos.lng);
                 infoWindow.setPosition(pos);
-                infoWindow.setContent('Location found.');
+                infoWindow.setContent('You.');
                 infoWindow.open(map);
                 map.setCenter(pos);
             }, function() {
@@ -203,20 +205,63 @@ $(document).ready(function() {
             'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(map);
     }
-    // function getUsersLatLng() {
-    //     var APIKey = "&key=AIzaSyAE2CIuMnHiuUN7XLs9fRiATGN1gD-t0LY";
-    //         // Here we are building the URL we need to query the database
-    //         var queryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + userAddress + "," + userCity + "," + userState + APIKey;
-    //         // We then created an AJAX call
-    //         $.ajax({
-    //             url: queryURL,
-    //             method: "GET"
-    //         }).then(function(response) {
-    //             // Loop through 20 results of i
-    //             // grab their location, images, phone number, timings(lucnh, dinner, (sun, sat), breakfast, etc... )
-    //             // Pull the restaurant images
-    //             console.log(response);
-    //     }
+
+
+    // This function is run when either locator button is pushed.  
+
+    function getFoodSpots() {
+
+        var zBaseURL = "https://developers.zomato.com/api/v2.1/search?"
+        var APIKey = "apikey=2acf625e70fd25f7205fda31a0f6cb15&";
+        var queryURL = "https://developers.zomato.com/api/v2.1/search?" + APIKey + "&lat=" + userLat + "&lon=" + userLng + "&" + "radius=" + meters;
+                  $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function(response) {
+                results = response.restaurants;
+        console.log(results);
+            });
+        
+        }
+    
+          //on search again click, pull single random ajax call
+    // $("#searchAgain").on("click", function() {
+    
+        // for (var k = 0; k < previousPlaces.length; k++) {
+        //     var placeHolder = $("<li>");
+        //     var a = $("<a>");
+        //     var img = $("<img>");
+        //     var p = $("<p>");
+        //     var p2 = $("<p>");
+        //     var name = $("<h4>")
+        //     placeHolder.addClass("placeCard");
+        //     name.addClass("restName");
+        //     name.attr("data-name", previousPlaces[k].restaurantName);
+        //     name.text(previousPlaces[k].restaurantName);
+        //     a.addClass("link");
+        //     a.attr("data-link", previousPlaces[k].url);
+        //     img.addClass("placePhoto");
+        //     img.attr("data-photo", previousPlaces[k].photo);
+        //     p.addClass("info");
+        //     p.attr("data-info", previousPlaces[k].hightlights);
+        //     p.text(previousPlaces[k].hightlights)
+        //     p2.addClass("rating");
+        //     p2.attr("data-rating", previousPlaces[k].rating);
+        //     p2.text(previousPlaces[k].rating);
+        //     a.append(p, p2, name, img);
+        //     placeHolder.append(a);
+        //     $("#sideNav").append(placeHolder);
+        // }
+
+
+
+
+
+
+
+
+
+
 });
 
 
