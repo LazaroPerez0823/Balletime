@@ -7,17 +7,18 @@
     <link rel="stylesheet" href="css/reset.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <title>We Should I Eat??</title>
+    <title>Hangry?</title>
 </head>
 <body>
     <div id="container">
         <div id="titlePage">
-            <h1>Where Should I Eat??</h1>
+            <h1>Hangry?</h1>
+            <p>Can't brain cuz no food? No worry. We make easy.</p>
             <div id="displayContent">
                 <div id="map"></div>
                 <button id="searchAgain" class="button">Find A Place</button>
             </div>
-            <button id="prevSearches" class="button">Previous Searches</button>
+            <button id="prevSearches" class="button">Previous Places</button>
         </div>
         <div id="sideContainer">
             <ul id="sideNav">
@@ -25,6 +26,7 @@
         </div>
         <div id="addressModal" class="modal">
             <div class="modalContent">
+                <!-- <span id="closeBtn">&times;</span> -->
                 <h3>My Location</h3>
                 <form>
                     <div class="form-row">
@@ -42,13 +44,13 @@
                        </select>
                     </div>
                                       <div class="form-row">
-                        <label for="inputRadius">Radius:</label>
+                        <label for="inputRadius">Radius (km):</label>
                         <select class="form-control" id="inputRadius">
-                           <option selected>Choose...</option>
-                       </select>
+                           <option selected>.5</option><span>
+                       </select> * Default set to .5
                     </div>
-                    <button id="modalGoBtn" class="button">Search</button>
-                    <button id="modalFindMeBtn" class="button">Find My Location</button>
+                    <button id="modalGoBtn" class="button">Search Address</button>
+                    <button id="modalFindMeBtn" class="button">Find My GPS Location</button>
                 </form>
             </div>
         </div>
@@ -56,7 +58,7 @@
     <!-- This is a jQuery CND for cookies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script src="script/script.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAE2CIuMnHiuUN7XLs9fRiATGN1gD-t0LY&callback=initMap">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAE2CIuMnHiuUN7XLs9fRiATGN1gD-t0LY&callback=initMap"></script>
     </script>
 </body>
 </html>
