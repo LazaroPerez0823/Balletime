@@ -7,7 +7,7 @@ $(document).ready(function () {
     var userRadius;
     var meters = 804;
     var results;
-    var i;
+    var i = 0;
     
     $("#sideContainer").hide();
     //dropdown for states
@@ -194,7 +194,6 @@ $(document).ready(function () {
         var randomNumber = [Math.floor(Math.random() * 20)];
         console.log(results[randomNumber]);
         i = randomNumber
-        console.log("i" + i);
         var placeHolder = $('<li>');
         var a = $('<a>');
         var p1 = $('<p>');
@@ -220,8 +219,7 @@ $(document).ready(function () {
         $("#sideNav").append(placeHolder);
         destLat = (results[i].restaurant.location.latitude * 1);
         destLng = (results[i].restaurant.location.longitude * 1);
-      
-        destMap();
+         destMap();
 
 
     });
@@ -243,35 +241,35 @@ $(document).ready(function () {
       
             // New map
             var map = new google.maps.Map(document.getElementById('map'), options);
+            var rendererOptions = {
+                suppressMarkers: true,
+              };
             var directionsService = new google.maps.DirectionsService();
-            var directionsDisplay = new google.maps.DirectionsRenderer();
+            var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
             directionsDisplay.setMap(map);
             var request = {   travelMode: google.maps.TravelMode.DRIVING, optimizeWaypoints: true, waypoints: []  };
       
-            // Listen for click on map
-            google.maps.event.addListener(map, 'click', function(event){
-              // Add marker
-              addMarker({coords:event.latLng});
-            });
-      
+           
             // Array of markers
             var markers = [
               {
                coords:{lat:userLat,lng:userLng},
-              iconImage:'ME.png',
+            //   iconImage:'ME.png',
               content:'You'
               },
                 {
                coords:{lat:lats,lng:lngs},
-              iconImage:'food.png',
-              content: 'results[i].restaurant.name'
+            //   iconImage:'food.png',
+              content: results[i].restaurant.name
               }
             ];
            
+
+   
                        // Loop through markers
-            for(var i = 0;i < markers.length;i++){
+            for(var l = 0; l < markers.length; l++){
               // Add marker
-              addMarker(markers[i]);
+              addMarker(markers[l]);
             }
       
             // Add Marker Function
@@ -279,16 +277,10 @@ $(document).ready(function () {
               var marker = new google.maps.Marker({
                 position:props.coords,
                 map:map,
-                icon:props.iconImage
+                // icon:props.iconImage
               });
       
-              // Check for customicon
-              if(props.iconImage){
-                // Set icon image
-                marker.setIcon(props.iconImage);
-              }
-      
-              // Check content
+                // Check content
               if(props.content){
                 var infoWindow = new google.maps.InfoWindow({
                   content:props.content
@@ -296,12 +288,13 @@ $(document).ready(function () {
       
                 marker.addListener('click', function(){
                   infoWindow.open(map, marker);
+                  
                 });
-              }     
-              if (i === 0) { 
+                             }     
+              if (l === 0) { 
                   request.origin = props.coords; 
               }
-              else if (i === markers.length - 1) {
+              else if (l === markers.length - 1) {
                   request.destination = props.coords;
                   }
                   else {
@@ -313,6 +306,7 @@ $(document).ready(function () {
                       }
       
                   }
+                  infoWindow.open(map, marker);
               //End of Add Marker Function
               }
           directionsService.route(request,function(response,status){
@@ -322,33 +316,6 @@ $(document).ready(function () {
      
           });
           }
-
-
-
-        // infoWindow = new google.maps.InfoWindow;
-        // map = new google.maps.Map(document.getElementById('map'), {
-        //     center: {
-        //         lat: destLat,
-        //         lng: destLng,
-        //     },
-
- 
-
-        //     zoom: 15
-        // });
-
-        // var marker = new google.maps.Marker({
-        //     position: new google.maps.LatLng(userLat, userLng),
-            
-        //     map: map,
-        //     title: "YOU"
-        // });
-
-        // infoWindow.setPosition(pos);
-        // infoWindow.setContent(results[i].restaurant.name);
-        // infoWindow.open(map);
-        // map.setCenter(pos);
-        
    
     $(document).on("click", ".link", function() {
         event.preventDefault();
