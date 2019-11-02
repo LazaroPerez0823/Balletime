@@ -7,8 +7,8 @@ $(document).ready(function () {
     var userRadius;
     var meters = 804;
     var results;
-    var i;
-
+    var i = 0;
+    
     $("#sideContainer").hide();
     //dropdown for states
     var states = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida",
@@ -43,8 +43,6 @@ $(document).ready(function () {
         radDropdown.text(radius[j]);
         $("#inputRadius").append(radDropdown);
     }
-
-
     //show side nav
     $("#prevSearches").on("click", function () {
         $("#sideContainer").show();
@@ -62,7 +60,6 @@ $(document).ready(function () {
         event.preventDefault()
         // call outside functions for actions on click
         findLocation();
-
     });
 
     // When users click "search"
@@ -88,7 +85,7 @@ $(document).ready(function () {
 
             userLat = (response.results[0].geometry.location.lat);
             userLng = (response.results[0].geometry.location.lng);
-
+            console.log(queryURL)
             var map, infoWindow;
             var pos = {
                 lat: userLat,
@@ -111,7 +108,8 @@ $(document).ready(function () {
             infoWindow.setContent('You.');
             infoWindow.open(map);
             map.setCenter(pos);
-
+            //remove
+            console.log(queryURL)
         });
     });
 
@@ -134,7 +132,6 @@ $(document).ready(function () {
     function findLocation() {
         userRadius = $('#inputRadius').val().trim();
         meters = parseInt(userRadius * 1609.344);
-
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
@@ -148,7 +145,10 @@ $(document).ready(function () {
                 map.setCenter(pos);
                 userLat = position.coords.latitude;
                 userLng = position.coords.longitude;
+
+
                 getFoodSpots();
+
             }, function () {
                 handleLocationError(true, infoWindow, map.getCenter());
             });
@@ -172,45 +172,22 @@ $(document).ready(function () {
     function getFoodSpots() {
 
         var zBaseURL = "https://developers.zomato.com/api/v2.1/search?"
-        var APIKey = "apikey=2acf625e70fd25f7205fda31a0f6cb15&";
-        var queryURL = "https://developers.zomato.com/api/v2.1/search?" + APIKey + "&lat=" + userLat + "&lon=" + userLng + "&" + "radius=" + meters + "&sort=real_distance";
+        var APIKey = "&apikey=2acf625e70fd25f7205fda31a0f6cb15";
+        var queryURL = "https://developers.zomato.com/api/v2.1/search?" + "lat=" + userLat + "&lon=" + userLng + "&" + "radius=" + meters + "&order=asc" + "&sort=rating" + APIKey;
+        console.log(queryURL);
+
         $.ajax({
             url: queryURL,
             method: "GET"
         }).then(function (response) {
             results = response.restaurants;
+          
         });
 
     }
 
 
-    function destMap() {
-        lat = destLat;
-        lng = destLng;
-        var map, infoWindow;
-        var pos = {
-            lat,
-            lng,
-
-        };
-
-
-        infoWindow = new google.maps.InfoWindow;
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: {
-                lat: destLat,
-                lng: destLng,
-            },
-
-            zoom: 15
-        });
-
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(results[i].restaurant.name);
-        infoWindow.open(map);
-        map.setCenter(pos);
-    };
-
+    
 
     $("#searchAgain").on("click", function () {
         var randomNumber = [Math.floor(Math.random() * 20)];
@@ -241,15 +218,107 @@ $(document).ready(function () {
         $("#sideNav").append(placeHolder);
         destLat = (results[i].restaurant.location.latitude * 1);
         destLng = (results[i].restaurant.location.longitude * 1);
-        destMap();
+         destMap();
 
 
     });
 
+
+    function destMap() {
+        lats = destLat;
+        lngs = destLng;
+    
+        console.log(results);
+        console.log(i);
+
+
+            // Map options
+            var options = {
+              zoom:12,
+              center:{lat:41.955048,lng:-79.835499}
+            }
+      
+            // New map
+            var map = new google.maps.Map(document.getElementById('map'), options);
+            var rendererOptions = {
+                suppressMarkers: true,
+              };
+            var directionsService = new google.maps.DirectionsService();
+            var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+            directionsDisplay.setMap(map);
+            var request = {   travelMode: google.maps.TravelMode.DRIVING, optimizeWaypoints: true, waypoints: []  };
+      
+           
+            // Array of markers
+            var markers = [
+              {
+               coords:{lat:userLat,lng:userLng},
+            //   iconImage:'ME.png',
+              content:'You'
+              },
+                {
+               coords:{lat:lats,lng:lngs},
+            //   iconImage:'food.png',
+              content: results[i].restaurant.name
+              }
+            ];
+           
+
+   
+                       // Loop through markers
+            for(var l = 0; l < markers.length; l++){
+              // Add marker
+              addMarker(markers[l]);
+            }
+      
+            // Add Marker Function
+            function addMarker(props){
+              var marker = new google.maps.Marker({
+                position:props.coords,
+                map:map,
+                // icon:props.iconImage
+              });
+      
+                // Check content
+              if(props.content){
+                var infoWindow = new google.maps.InfoWindow({
+                  content:props.content
+                });
+      
+                marker.addListener('click', function(){
+                  infoWindow.open(map, marker);
+                  
+                });
+                             }     
+              if (l === 0) { 
+                  request.origin = props.coords; 
+              }
+              else if (l === markers.length - 1) {
+                  request.destination = props.coords;
+                  }
+                  else {
+                      if (props.coords) {
+                      request.waypoints.push({
+                      location: props.coords,
+                      stopover: true
+                          })
+                      }
+      
+                  }
+                  infoWindow.open(map, marker);
+              //End of Add Marker Function
+              }
+          directionsService.route(request,function(response,status){
+              if (status == "OK"){
+                  directionsDisplay.setDirections(response)
+              }
+     
+          });
+          }
+   
     $(document).on("click", ".link", function() {
         event.preventDefault();
         window.open(this.href, "_blank");
     });
 });
-
 
