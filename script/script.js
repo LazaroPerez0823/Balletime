@@ -235,7 +235,7 @@ $(document).ready(function () {
 
             // Map options
             var options = {
-              zoom:12,
+              zoom:13,
               center:{lat:41.955048,lng:-79.835499}
             }
       
